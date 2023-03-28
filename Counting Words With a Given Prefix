@@ -1,0 +1,17 @@
+class Solution {
+    public int prefixCount(String[] words, String pref) {
+        int pl=pref.length(),count=0,l=0; //pl is prefix length
+
+        for(String y:words){
+            l=Math.min(pl,y.length());  //comparing identify the smallest length
+           y=y.substring(0,l);   
+           System.out.println(y);
+            if(y.equals(pref))
+            count++;
+        }
+        return count;
+        
+    
+
+    }
+}
