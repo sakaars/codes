@@ -1,0 +1,19 @@
+class Solution {
+    public int findGCD(int[] nums) {
+        int minN = nums[0];
+        int maxN = nums[0];
+        for (int i = 0; i != nums.length; ++i) {
+            if (minN > nums[i]) minN = nums[i];
+            if (maxN < nums[i]) maxN = nums[i];
+        }
+        // Euclidean Algorithm
+        while (minN != maxN) {
+            if (minN > maxN) {
+                minN -= maxN;
+            } else {
+                maxN -= minN;
+            }
+        }
+        return minN;
+    }
+}
