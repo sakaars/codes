@@ -1,0 +1,15 @@
+class Solution {
+    public int partitionString(String s) 
+    {
+        int res = 1, mask = 0; // at least 1 partition
+        for (char c : s.toCharArray()) {
+            int maskc = 1 << (c-'a');
+            // if ((mask >> (c-'a') & 1) == 1) {
+            if ((maskc & mask) > 0) { // this char has already been used in cur partition
+                mask = maskc; // start a new partition with cur char
+                res++; // count the new partition
+            } else mask |= maskc; // add cur char to cur partition
+        }
+        return res;
+    }
+}
