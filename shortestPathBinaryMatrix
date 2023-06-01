@@ -1,0 +1,54 @@
+class Solution {
+    public int (int[][] grid) {
+        int N = grid.length;
+        
+        if (grid[0][0] != 0 || grid[N - 1][N - 1] != 0) {
+            return -1;
+        }
+
+        int directions[][] = {{-1,0},{1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};
+        
+        Queue<Attempt> attempts = new PriorityQueue<>();
+        attempts.add(new Attempt(0, 0, 1));
+        while (!attempts.isEmpty()) {
+           Attempt attempt = attempts.poll();
+            
+           if (attempt.row == N - 1 && attempt.column == N - 1) {
+               return attempt.step;
+           } 
+            
+           for (int[] direction : directions) {
+               int row = attempt.row + direction[0];
+               int column = attempt.column + direction[1];
+               
+               if (row >= 0 && row < N && column >= 0 && column < N && grid[row][column] == 0) {
+                   attempts.add(new Attempt(row, column, attempt.step + 1));
+                   grid[row][column] = -1; 
+                }  
+           } 
+        }
+        
+        return -1;
+    }
+    
+    class Attempt implements Comparable<Attempt> {
+        int row;
+        int column;
+        int step;
+        
+        public Attempt (int row, int column, int step) {
+            this.row = row;
+            this.column = column;
+            this.step = step;
+        }
+        
+        @Override
+        public int compareTo(Attempt other) {
+            if (this.step == other.step) {
+                return other.row + other.column - this.row - this.column;
+            }
+            
+            return this.step - other.step;
+        }
+    }
+}
