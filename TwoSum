@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+                vector<int> sortedNums = nums;
+        sort(sortedNums.begin(), sortedNums.end());
+        
+        int left = 0;
+        int right = sortedNums.size() - 1;
+        
+        while (left < right) {
+            int sum = sortedNums[left] + sortedNums[right];
+            
+            if (sum == target) {
+                break;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        vector<int> result;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == sortedNums[left] || nums[i] == sortedNums[right]) {
+                result.push_back(i);
+            }
+        }
+        
+        return result;
+    }
+};
